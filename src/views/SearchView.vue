@@ -39,9 +39,9 @@ export default {
         }
     },
     methods: {
-        ...mapGetters(['getProducts', 'getSearchQuery']),
+        ...mapGetters(['getSearchQuery']),
         updateBestDeals(filterProducts) {
-            window.clevertap.event.push('Product Searched',filterProducts);
+            // window.clevertap.event.push('Product Searched')
             var i,j,flag;
             for(i=0;i<3 && i<filterProducts.length;i++){
                 flag=0;

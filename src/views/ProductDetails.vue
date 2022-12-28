@@ -88,7 +88,7 @@
                         <div>{{computeWidth(2)}}</div>
                         <div>{{computeWidth(1)}}</div>
                     </div>
-                    <div class="count">
+                    <div class="count"> 
                         <p><small class="text-muted">{{this.reviews[id].reviews.filter(review => review.rating==5).length}}</small></p>
                         <p><small class="text-muted">{{this.reviews[id].reviews.filter(review => review.rating==4).length}}</small></p>
                         <p><small class="text-muted">{{this.reviews[id].reviews.filter(review => review.rating==3).length}}</small></p>
@@ -126,6 +126,7 @@
 
 
 <script>
+// import products from '@/../public/home-products'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import ReviewList from '@/components/ReviewList.vue'
 import ReviewForm from '@/components/ReviewForm.vue'
@@ -144,7 +145,8 @@ export default {
         review: {}
       },
       display: 'none',
-      newProductId: null
+      newProductId: null,
+      // checkProducts: products
     }
   },
   components: {
@@ -240,7 +242,7 @@ export default {
         
         // this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
         // this.$forceUpdate()
-    },
+    }
   },
   beforeMount() {
     this.setProduct();
@@ -252,21 +254,6 @@ export default {
         this.id=newId
     })
   }
-//   watch: {
-//     '$route.params.id' : {
-//       handler() {
-//         this.product = this.getProductDetails();
-//         if (!this.product) {
-//           this.emptyRes = true
-//         } else {
-//             // console.log('Product Viewed')
-//           window.clevertap.event.push('Product Viewed', this.product)
-//         }
-//       },
-//       deep: true,
-//       immediate: true
-//     }
-//   }
 }
 </script>
 
@@ -371,8 +358,8 @@ a:visited{
 
 .review {
     position: relative;
-    /* top: 10px; */
-    bottom: 150px;
+    top: 300px;
+    /* bottom: 150px; */
     margin: 20px;
     padding: 10px;
 }

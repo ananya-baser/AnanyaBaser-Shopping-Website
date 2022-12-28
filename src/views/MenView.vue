@@ -1,8 +1,8 @@
 <template>
     <div class="home">
         <div id="men-banner-1" class="men-banner-1">
-            <!-- <img  src="@/../public/images/men-banner.jpg" alt=""> -->
-            <div id="test"></div>
+            <img  src="@/../public/images/men-banner.jpg" alt="">
+            <!-- <div id="test"></div> -->
         </div>
         <h3 class="top-picks-caption">TOP PICKS FOR YOU!</h3>
         <div class="scrolling-wrapper">

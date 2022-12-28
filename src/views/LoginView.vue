@@ -33,7 +33,7 @@
                         </div>
                      <div class="second-half">			
                         <!-- <p>Gender</p> -->
-                        <select class="drop-down-menu gender" name="gender">
+                        <select class="drop-down-menu gender" name="gender" v-model="gender">
                             <option class="drop-down-menu-placeholder" value="" disabled selected>Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -332,18 +332,21 @@
                 } 
                 else {
                     alert("You are now logged in");
-                    window.clevertap.onUserLogin.push({
+                    window.clevertap.profile.push({
                         "Site" : {
-                            Email: this.emailLogin,
-                            Name: this.nameLogin,
-                            Birthday: this.dobSelect,
-                            ct_gender: this.gender
+                            "Email": this.emailLogin,
+                            "Name": this.nameLogin,
+                            "Birthday": this.dobSelect,
+                            "ct_gender": this.gender,
+                            "last_product_viewed": []
                         }
                     })
+                    
                     this.updateUser({
                         // name: this.name,
                         email: this.emailLogin,
                         password: this.passwordLogin,
+                        last_product_viewed:[]
                         // dob: this.dob,
                         // ct_gender: this.gender
                     })
@@ -360,20 +363,24 @@
                 else {
                     alert("You are now registered");
                 
-                    window.clevertap.onUserLogin.push({
+                    window.clevertap.profile.push({
                         "Site" : {
-                            Email: this.emailReg,
-                            Name: this.nameReg,
-                            Birthday: this.dobSelect,
-                            ct_gender: this.gender
+                            "Email": this.emailReg,
+                            "Name": this.nameReg,
+                            "Birthday": this.dobSelect,
+                            "ct_gender": this.gender,
+                            "last_product_viewed": []
                         }
                     })
+                    
                     this.updateUser({
                         name: this.nameReg,
                         email: this.emailReg,
                         password: this.passwordReg,
                         dob: this.dobSelect,
-                        ct_gender: this.gender
+                        ct_gender: this.gender,
+                        last_product_viewed:[]
+
                     })
                     this.$router.push('/')
                 }

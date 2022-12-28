@@ -1,3 +1,18 @@
+import products from "./home-products"
+import bestDeals from './home-best-deals'
+import productList from './product-list'
+export function getHomeProducts () {
+    return products
+}
+export function setHomeProducts (newProducts) {
+    products = newProducts
+}
+export function getHomeBestDeals () {
+    return bestDeals
+}
+export function setHomeBestDeals (newBestDeals) {
+    bestDeals = newBestDeals
+}
 function renderCartDropOffPersonalisationCampaign(data) {
     const value = data.kv.Name;
     const textDiv = document.createElement('div')
@@ -9,7 +24,7 @@ function renderCartDropOffPersonalisationCampaign(data) {
     textDiv.innerText = value
     document.getElementById('banner1').appendChild(textDiv)
 }
-  
+
 function addToCartPersonalizationCampaign(data){
     let product=data.kv.Product;
     console.log(product);
@@ -17,47 +32,65 @@ function addToCartPersonalizationCampaign(data){
 
 
 }
-// function productViewedPersonalisationCampaign(data){
-    
-//     const name = data.kv.Name;
-//     const product = data.kv.Product;
 
-//     const textDiv = document.createElement('div');
-//     textDiv.innerText = `Hi <h1 id="user-name">user</h1> this is the <p "product-name">product</p>`
-//     textDiv.style.cssText = `   position: absolute;
-//                                 top: 0;
-//                                 left: 0;
-//                                 width: 100%;
-//                                 text-align: center;
-//                                 background-color: yellow;
-//                             `
-//     const namePlace = textDiv.getElementById('user-name');
-//     namePlace.innerHTML = name;
+function productViewedPersonalisationCampaign(data){
+    let products = getHomeProducts();
+    // handling top picks
+    console.log(products);
+    let lastProductViewed =JSON.parse(data.kv.last_product_viewed);
+    console.log(lastProductViewed);
+    let productPresentInArray = -1
+    for (let i=0; i<products.length; i++) {
+        if (lastProductViewed.id === products[i].id) {
+            productPresentInArray = i
+            break
+        }
+    }
+    console.log(productPresentInArray);
+    if(productPresentInArray === -1) {
+        products.pop();
+        products.unshift(lastProductViewed);
+    }
+    else {
+        products.splice(productPresentInArray, 1);
+        products.unshift(lastProductViewed);
+    }
+    console.log(products);
+    setHomeProducts(products);
 
-//     const productPlace = textDiv.getElementsByTagName('product-name');
-//     productPlace.innerHTML = product;
-
-//     document.getElementById('test').appendChild(textDiv)
-//     // let product = data.kv.Product
-    
-//     console.log(data.kv.Product);
-// }
-
-console.log(1);
+    console.log(productList.length)
+    let bestDeals = getHomeBestDeals()
+    productPresentInArray = -1
+    let filterProducts = productList.filter((product) => product.typeOfProduct === lastProductViewed.typeOfProduct).slice(0, 3)
+    console.log(filterProducts)
+    for (let i=0; i<filterProducts.length; i++) {
+        let tempProduct = filterProducts[i]
+        for (let j=0; j<bestDeals.length; j++) {
+            if (tempProduct.id === bestDeals[j].id) {
+                productPresentInArray = j
+                break
+            }
+        }
+        if (productPresentInArray === -1) {
+            bestDeals.pop()
+            bestDeals.unshift(tempProduct)
+        }
+        else {
+            bestDeals.splice(productPresentInArray, 1)
+            bestDeals.unshift(tempProduct)
+        }
+    }
+    console.log(bestDeals)
+    setHomeBestDeals(bestDeals)
+}
 document.addEventListener("CT_web_native_display", function(event) {
     const data = event.detail;
     const topic = data.kv.topic;
-    console.log(topic);
     switch (topic) {
-        case "homepage": {
-            renderCartDropOffPersonalisationCampaign(data)
-            break;
+       
+        case "Product Viewed":{
+            productViewedPersonalisationCampaign(data);
         }
-        case "Added to Cart":{
-            addToCartPersonalizationCampaign(data)
-            break;
-        }
-
        
     }
 });

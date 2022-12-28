@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import products from "../assets/fixtures/productDetails/home/home-products.js";
-import menProducts from "../assets/fixtures/productDetails/men/men-products.js";
-import womenProducts from "../assets/fixtures/productDetails/women/women-products.js"
+import products from "@/../public/home-products";
+//import menProducts from "../assets/fixtures/productDetails/men/men-products.js";
+//import womenProducts from "../assets/fixtures/productDetails/women/women-products.js"
 import { mapMutations } from 'vuex';
     export default{
         name: 'ProductCard',
@@ -34,70 +34,19 @@ import { mapMutations } from 'vuex';
             goToDetails(product) {
                 console.log(products)
                 console.log(product)
-                window.clevertap.event.push('Product Viewed',product);
-                let flag=0;
-                var i;
-                for(i=0;i<products.length;i++){
-                    if(products[i].id==product.id){
-                        flag=1;
-                        break
-                    }
-                }
-                if(flag==0){
-                    // console.log(false);
-                    products.pop();
-                    products.unshift(product)
-                }
-                else{
-                    // console.log(true)
-                    products.splice(i,1);
-                    products.unshift(product)
-                }
-
-                flag=0;
-                if(product.title.toLowerCase().includes('women') || product.description.toLowerCase().includes('women') || product.typeOfProduct.toLowerCase().includes('women') || product.image.toLowerCase().includes('women')){
-                    for(i=0;i<womenProducts.length;i++){
-                        if(womenProducts[i].id==product.id){
-                            flag=1;
-                            break
-                        }
-                    }
-                    if(flag==0){
-                        // console.log(false);
-                        womenProducts.pop();
-                        womenProducts.unshift(product)
-                    }
-                    else{
-                        // console.log(true)
-                        womenProducts.splice(i,1);
-                        womenProducts.unshift(product)
-                    }
-                }
-                else{
-                    for(i=0;i<menProducts.length;i++){
-                        if(menProducts[i].id==product.id){
-                            flag=1;
-                            break
-                        }
-                    }
-                    if(flag==0){
-                        // console.log(false);
-                        menProducts.pop();
-                        menProducts.unshift(product)
-                    }
-                    else{
-                        // console.log(true)
-                        menProducts.splice(i,1);
-                        menProducts.unshift(product)
-                    }
-                }
-
-
-               window.clevertap.event.push('Product Viewed', {'Name':'User', 'Product':product});
-
-                this.setProductDetails(product);
-                // console.log(product);
-                // this.$router.push(`/details/${product.id}`);
+                console.log(window.clevertap)
+            //     try {
+            //         console.log("yes1")
+            //     window.clevertap.addMultiValueForKey("last_product_viewed",JSON.stringify(product))
+            //    }
+            //    catch(e){
+            //     window.clevertap.setMultiValuesForKey('last_product_viewed',[JSON.stringify(product)])
+            //    } 
+                window.clevertap.setMultiValuesForKey('last_product_viewed',[JSON.stringify(product)])
+                window.clevertap.event.push("Product Viewed",  {
+                    "topic": "Product Viewed",
+                    "last_product_viewed": this.product
+                });
                 this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
             }
         }

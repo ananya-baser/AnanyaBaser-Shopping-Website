@@ -1,29 +1,33 @@
 <template>
     <div class="home">
-        <CarouselTemplate></CarouselTemplate>
+        <!-- <CarouselTemplate></CarouselTemplate> -->
+        
+        <div id="home_banner"></div>
         <h3 class="top-picks-caption">TOP PICKS FOR YOU!</h3>
         <div class="scrolling-wrapper">
+            
             <ProductCard class="card" id="product-cards" v-for="(product,index) in products" :key="index" :productDetails="product" @click="goToDetails(product)"></ProductCard>
         </div>
             
 
         <h3 class="best-deals">BEST DEALS FOR YOU!</h3>
         <div class="scrolling-wrapper">
-            <BestDeals class="card" v-for="(bestDeal,index) in bestDeals" :key="index" :bestDeals="bestDeal" @click="goToDetails(bestDeal)"></BestDeals>
+            <BestDeals class="card" v-for="(bestDeal,index) in bestDeals" :key="index" :bestDealsDetails="bestDeal" @click="goToDetails(bestDeal)"></BestDeals>
         </div>
     </div>
-    <div class="test"></div>
+    
 </template>
 
 <script>
 // @ is an alias to /src
-import products from "../assets/fixtures/productDetails/home/home-products.js";
-import bestDeals from "../assets/fixtures/bestDeals/home/home-best-deals.js";
+import products from "@/../public/home-products";
+import bestDeals from "@/../public/home-best-deals";
 import CarouselTemplate from "@/components/CarouselTemplate.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import BestDeals from "@/components/BestDeals.vue";
 import { mapMutations } from 'vuex';
-
+// import { store } from '../../public/store'
+import { getHomeProducts, getHomeBestDeals } from "../../public/clevertap-campaigns";
 export default {
     name: "HomeView",
     components: {
@@ -33,21 +37,22 @@ export default {
 },
     data() {
         return {
-            products: products,
-            bestDeals: bestDeals
+            products: getHomeProducts(),
+            bestDeals: getHomeBestDeals(),
+            renderKey: 0
         }
     },
     methods: {
         ...mapMutations(['setProductDetails']),
         goToDetails(product) {
-            // console.log(products);
-            // products.splice(index,1);
-            // products.unshift(product);
+            console.log("hi")
             this.setProductDetails(product);
-            // console.log(product);
-            // this.$router.push(`/details/${product.id}`);
-            this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
+            this.products = getHomeProducts()
+            this.bestDeals = getHomeBestDeals()
         }
+    },
+    mounted() {
+        console.log(this.products)
     }
 };
 </script>

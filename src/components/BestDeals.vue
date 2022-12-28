@@ -1,20 +1,22 @@
 <template>
-    <div class="card text-center" :style="{'background-image':`url(${bestDealImage})`, 'background-size':'200px'}">
+    <div class="card text-center" :style="{'background-image':`url(${bestDealImage})`, 'background-size':'200px'}" @click="goToDetails(bestDealsDetails)">
         <!-- <div class="card-img">
             <img :src="bestDeals.image" class="card-img-top" alt="">
         </div> -->
         <div class="card-body">
-	        <h5 class="card-title">{{ bestDeals.title }}</h5>
-	        <p class="card-text">{{ bestDeals.additionalText }}</p>
+	        <h5 class="card-title">{{ bestDealsDetails.title }}</h5>
+	        <p class="card-text">{{ bestDealsDetails.additionalText }}</p>
         </div>
     </div>
 </template>
 
 <script>
+import bestDeals from '@/../public/home-best-deals'
+import { mapMutations, mapGetters } from 'vuex'
     export default{
         name: 'BestDeals',
         props: {
-            bestDeals: {
+            bestDealsDetails: {
                 type: Object,
                 required: true
             }
@@ -26,15 +28,35 @@
         // }
 
         computed: {
+            ...mapGetters(['getProducts']),
             bestDealImage() {
                 // this.setImageDimensions();
-                return this.bestDeals.image;
-            }
+                return this.bestDealsDetails.image;
+            },
         },
         methods: {
+            ...mapMutations(['setProductDetails']),
+            goToDetails(product) {
+                console.log(bestDeals)
+                console.log(product)
+                console.log(window.clevertap)
+            //     try {
+            //         console.log("yes1")
+            //     window.clevertap.addMultiValueForKey("last_product_viewed",JSON.stringify(product))
+            //    }
+            //    catch(e){
+            //     window.clevertap.setMultiValuesForKey('last_product_viewed',[JSON.stringify(product)])
+            //    }
+                window.clevertap.setMultiValuesForKey('last_product_viewed',[JSON.stringify(product)])
+                window.clevertap.event.push("Product Viewed",  {
+                    "topic": "Product Viewed",
+                    "last_product_viewed": this.product
+                });
+                this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
+            },
             setImageDimensions() {
-                this.$refs.bestDeals.image.style.height='20px';
-            }   
+                this.$refs.bestDealsDetails.image.style.height='20px';
+            }
         }
     }
 </script>

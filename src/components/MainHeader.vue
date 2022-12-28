@@ -12,7 +12,7 @@
         </div>
         <div class="right-panel">
             <div class="notifications"><i class="notifications-icon fa-solid fa-bell"></i></div>
-            <div class="cart"><router-link to="/cart"><i class="cart-icon fa-solid fa-cart-shopping"></i></router-link></div>
+            <div class="cart" ref="cart"><router-link to="/cart"><i class="cart-icon fa-solid fa-cart-shopping"></i></router-link></div>
             <div class="profile" @click="showModal($event)"><i class="profile-icon fa-solid fa-user"></i></div>
         </div>
         <div class="modal" ref="modal" @mouseleave="hideModal">
@@ -27,7 +27,6 @@
 </template>
  
 <script>
-
     import CategoryChoices from '@/components/CategoryChoices.vue';
     import { mapActions, mapGetters, mapMutations } from 'vuex';
     import ProfileMenu from './ProfileMenu.vue';
@@ -93,7 +92,7 @@
             },
             toggleBadge (val) {
                 this.$refs.itemInCart && (this.$refs.itemInCart.style.display = val ? 'flex' : 'none')
-            }
+            },
         },
         mounted () {
             this.intialiseStoreFromLS()
