@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    name: 'ReviewForm',
+    name: 'FilterProduct',
     data() {
         return {
             price: [false,false,false,false,false],
