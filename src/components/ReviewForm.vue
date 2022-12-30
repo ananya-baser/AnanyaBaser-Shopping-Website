@@ -43,9 +43,7 @@ export default {
                 review: this.review,
                 rating: this.rating
             }
-            console.log(productReview)
             this.$emit('review-submitted',productReview);
-
             this.name='';
             this.review='';
             this.rating=null;

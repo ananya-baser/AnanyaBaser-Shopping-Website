@@ -71,7 +71,6 @@ export default {
     },
     methods: {
         checkForm() {
-            console.log(this.price)
             this.$router.push({ name: "search", params: {id:this.price}, query: {searchString: this.$route.query.searchString, filterPriceArray: this.price, filterColorArray: this.color, customColor: this.customColor} })
         }
     }

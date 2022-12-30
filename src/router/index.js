@@ -63,8 +63,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-    console.log(to.fullPath)
-    return true
-  })
+  return true
+})
 
 export default router;

@@ -36,9 +36,7 @@ function addToCartPersonalizationCampaign(data){
 function productViewedPersonalisationCampaign(data){
     let products = getHomeProducts();
     // handling top picks
-    console.log(products);
     let lastProductViewed =JSON.parse(data.kv.last_product_viewed);
-    console.log(lastProductViewed);
     let productPresentInArray = -1
     for (let i=0; i<products.length; i++) {
         if (lastProductViewed.id === products[i].id) {
@@ -46,7 +44,6 @@ function productViewedPersonalisationCampaign(data){
             break
         }
     }
-    console.log(productPresentInArray);
     if(productPresentInArray === -1) {
         products.pop();
         products.unshift(lastProductViewed);
@@ -55,14 +52,11 @@ function productViewedPersonalisationCampaign(data){
         products.splice(productPresentInArray, 1);
         products.unshift(lastProductViewed);
     }
-    console.log(products);
     setHomeProducts(products);
 
-    console.log(productList.length)
     let bestDeals = getHomeBestDeals()
     productPresentInArray = -1
     let filterProducts = productList.filter((product) => product.typeOfProduct === lastProductViewed.typeOfProduct).slice(0, 3)
-    console.log(filterProducts)
     for (let i=0; i<filterProducts.length; i++) {
         let tempProduct = filterProducts[i]
         for (let j=0; j<bestDeals.length; j++) {
@@ -80,7 +74,6 @@ function productViewedPersonalisationCampaign(data){
             bestDeals.unshift(tempProduct)
         }
     }
-    console.log(bestDeals)
     setHomeBestDeals(bestDeals)
 }
 document.addEventListener("CT_web_native_display", function(event) {

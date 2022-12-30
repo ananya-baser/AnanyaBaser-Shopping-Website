@@ -41,8 +41,6 @@ export default {
         goToDetails(product) {
             window.clevertap.profile.push({Site : {'last_product_men': this.product}});
             this.setProductDetails(product);
-            console.log(product);
-            // this.$router.push(`/details/${product.id}`);
             this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
         }
     }

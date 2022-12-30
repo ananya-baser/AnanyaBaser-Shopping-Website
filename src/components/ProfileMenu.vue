@@ -24,7 +24,6 @@ export default {
     ...mapGetters(['getUser']),
     // ...mapActions(['updateUser']),
     isLoggedIn () {
-      console.log(this.getUser().name)
     //   this.updateUser(this.getUser().name)
       return this.getUser().name
     }
@@ -34,9 +33,6 @@ export default {
     logout () {
       this.updateUser({})
     }
-  },
-  mounted () {
-    console.log('hi')
   }
 }
 </script>

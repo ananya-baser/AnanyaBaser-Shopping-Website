@@ -37,11 +37,7 @@ import { mapMutations, mapGetters } from 'vuex'
         methods: {
             ...mapMutations(['setProductDetails']),
             goToDetails(product) {
-                console.log(bestDeals)
-                console.log(product)
-                console.log(window.clevertap)
             //     try {
-            //         console.log("yes1")
             //     window.clevertap.addMultiValueForKey("last_product_viewed",JSON.stringify(product))
             //    }
             //    catch(e){

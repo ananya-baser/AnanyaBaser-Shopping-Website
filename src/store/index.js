@@ -5675,13 +5675,9 @@ export const store = {
     },
     setProductDetails(state, product) {
         state.product = {...product};
-        // console.log(state.product);
     },
     addReviewToList(state, review) {
-        // console.log(id)
-        console.log(review)
         state.reviews[review.id].reviews.push(review.review)
-        console.log(state.reviews[review.id].reviews)
     },
     setHomeProducts(state, homeProducts) {
         state.homeProducts=homeProducts

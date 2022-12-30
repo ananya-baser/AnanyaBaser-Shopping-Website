@@ -45,14 +45,10 @@ export default {
     methods: {
         ...mapMutations(['setProductDetails']),
         goToDetails(product) {
-            console.log("hi")
             this.setProductDetails(product);
             this.products = getHomeProducts()
             this.bestDeals = getHomeBestDeals()
         }
-    },
-    mounted() {
-        console.log(this.products)
     }
 };
 </script>

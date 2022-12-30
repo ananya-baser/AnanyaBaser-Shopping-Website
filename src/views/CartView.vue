@@ -76,7 +76,6 @@ export default {
     ...mapMutations(['setProductDetails']),
     goToDetails(product) {
         this.setProductDetails(product);
-        console.log(product);
         this.$router.push(`/${product.id}`);
     },
     updateCart(item, op) {

@@ -68,10 +68,6 @@ export default {
             let filterPriceArray = this.$route.query.filterPriceArray
             let filterColorArray = this.$route.query.filterColorArray
             let customColor = this.$route.query.customColor
-            // console.log(filterPriceArray)
-            // console.log(filterPriceArray!=undefined && filterPriceArray[1]=='true'?"yes":"no")
-            // console.log(searchString)
-
             let products = this.getProducts()
             let filterProducts = products.filter(product => (   
                                                                 (
@@ -126,21 +122,7 @@ export default {
             this.updateBestDeals(filterProducts)
             return filterProducts
         }
-    },
-    // mounted() {
-    //     console.log(this.$route.query)
-    //     // console.log(this.$route.params)
-    // },
-    // watch: {
-    //     filteredProducts: {
-    //         handler() {
-    //             // this.searchQuery = this.$route.query.searchString
-    //             this.products = this.getProducts();
-    //         },
-    //         deep: true,
-    //         immediate: true
-    //     }
-    // }
+    }
 }
 </script>
 

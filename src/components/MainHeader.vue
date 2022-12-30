@@ -48,7 +48,6 @@
         computed: {
             ...mapGetters(['getItemsInCartCount', 'getSearchQuery']),
             itemsInCartCount () {
-                console.log(this.getItemsInCartCount());
                 return this.getItemsInCartCount()
             },
         },
@@ -56,15 +55,7 @@
             ...mapActions(['intialiseStoreFromLS']),
             ...mapMutations(['setSearchQuery']),
             submitSearchQuery() {
-                console.log(this.searchQuery); //works
-                console.log(94)
                 this.setSearchQuery(this.searchQuery);
-                console.log(this.searchQuery);//works
-                console.log(this.getSearchQuery());//works
-
-                // this.$router.addRoute(`/${this.searchQuery}`)
-                // this.$router.push(`/${this.searchQuery}`);
-
                 this.$router.push({ name: "search", params: {id:this.searchQuery}, query: {searchString: this.searchQuery} })
             },
             showModal (e, category) {
@@ -72,7 +63,6 @@
                 this.updateModalPosition(e)
             },
             hideModal () {
-                // console.log(this.$refs.modal);
                 this.$refs.modal.style.display = 'none'
             },
             updateModalPosition (e) {
@@ -85,11 +75,6 @@
                     this.$refs.modal.style.left = `${e.pageX - Math.floor(e.target.offsetWidth/2) - 195}px`
                 }  
             },
-            search () {
-                console.log(this.$refs.searchText.value)
-                console.log(this.$route.path)
-                // this.$router.push('/belt')
-            },
             toggleBadge (val) {
                 this.$refs.itemInCart && (this.$refs.itemInCart.style.display = val ? 'flex' : 'none')
             },
@@ -97,7 +82,6 @@
         mounted () {
             this.intialiseStoreFromLS()
             this.toggleBadge(this.itemsInCartCount)
-            console.log(this.$refs.cart.offsetTop, this.$refs.cart.offsetLeft)
             this.$refs.itemInCart.style.top = `${this.$refs.cart.offsetTop - 10}px`
             this.$refs.itemInCart.style.left = `${this.$refs.cart.offsetLeft + 13}px`
             window.addEventListener('resize', () => {

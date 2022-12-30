@@ -2,7 +2,7 @@
   <div class="category-wrapper">
     <div v-for="key in Object.keys(categoryOptions)" :key="key" class="option">
       <h5>{{key}}</h5>
-      <div class="category-item" v-for="item in categoryOptions[key]" :key="item" @click="closeModal; submitSearchQuery(item.name)">
+      <div class="category-item" v-for="item in categoryOptions[key]" :key="item" @click="closeModal, submitSearchQuery(item.name)">
         <!-- <router-link :to="`/${category}/${item.path}`">{{item.name}}</router-link> -->
         {{item.name}}
       </div>
@@ -42,15 +42,7 @@ export default {
     ...mapMutations(['setSearchQuery']),
     ...mapGetters(['getSearchQuery']),
     submitSearchQuery(name) {
-            // console.log(this.searchQuery); //works
         this.setSearchQuery((this.category + " " + name));
-            // console.log(this.searchQuery);//works
-            console.log(this.getSearchQuery());//works
-        // this.$router.push(`/search`);
-        // this.$router.addRoute({ name: `${name}`, path: `/${this.category}/${path}`, component: SearchView });
-        // this.$router.addRoute({ name: `${name}`, path: `/${path}`, component: SearchView });
-        // this.$router.push(`/${path}`);
-
         this.$router.replace({ name: "search", params: {id:name}, query: {searchString: name} })
     },
     closeModal () {

@@ -163,9 +163,7 @@ export default {
         return this.display
     },
     filteredProducts() {
-        console.log("hello")
         let products = this.getProducts();
-        console.log(products.length)
         let searchString = this.product.typeOfProduct
         let filterProducts =   products.filter(product =>   ((product.description.toLowerCase().includes(searchString.toLowerCase())) 
                                                                 || 
@@ -174,8 +172,6 @@ export default {
                                                             (product.typeOfProduct.toLowerCase().includes(searchString.toLowerCase()))
                                                                 &&
                                                             (product.id!=this.product.id)))
-        
-        console.log(filterProducts.slice(0,10).length)
         return filterProducts.slice(0,10)
     },
   },
@@ -192,25 +188,18 @@ export default {
       }, 2000)
     },
     setProduct() {
-        console.log(69);
         this.id = this.$route.query.id
         this.product = this.getProducts()[this.id-1];
-        // this.id = this.product.id;
-        console.log(this.product);
     },
     setReviewList() {
         this.reviews = this.getReviews()
     },
     addReview(reviewDetails) {
-        console.log(this.id);
-        console.log(reviewDetails);
         this.reviewDetails.id=this.id;
         this.reviewDetails.review=reviewDetails;
-        console.log(this.reviewDetails)
         this.addReviewToList(this.reviewDetails);
     },
     viewReviews() {
-        console.log("hi")
         this.display = 'block';
     },
     computeWidth(rating) {
@@ -232,22 +221,13 @@ export default {
         }
     },
     goToDetails(product) {
-        // console.log(products);
-        // products.splice(index,1);
-        // products.unshift(product);
         this.setProductDetails(product);
-        // console.log(product);
-        // this.$router.push(`/details/${product.id}`);
         this.id = product.id;
-        
-        // this.$router.push({name: 'details', params: {id:product.id}, query: {id:product.id}})
-        // this.$forceUpdate()
     }
   },
   beforeMount() {
     this.setProduct();
     this.setReviewList();
-    // console.log(this.id)
   },
   created() {
     this.$watch('id', (newId) => {
